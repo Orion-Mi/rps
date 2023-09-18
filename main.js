@@ -82,6 +82,12 @@ function game(){
         console.log(` Computer scores: ${computerScore} \n Humanity extinct!`);
     } else if(computerScore ==playerScore){
         console.log(`Computer scored: ${computerScore} \n You scored: ${playerScore} \n You got a second chance to save Humanity!`);
+        let secondChance = confirm("Would you like to take another shot?");
+            if (secondChance){
+                game();
+            }else{
+                alert("We appreciate your efforts");
+            }
     }else{
         console.log(`You scored: ${playerScore} \n You saved Humanity!`)
     }
