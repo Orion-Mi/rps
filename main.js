@@ -1,95 +1,91 @@
-const choices = ['rock', 'paper', 'scissors'];
+
 let playerScore = 0;
 let computerScore = 0;
 
-function playRound(playerSelection, computerSelection){
-    // Getting computer choice
+// Defining papameters
+// const play = document.querySelector('.play');
+const rock = document.querySelector('.rock') ;
+const paper = document.querySelector('.paper') ;
+const scissors = document.querySelector('.scissors') ;
+const outcome = document.querySelector('.outcome_div');
+const determine_winner = document.querySelector('.win_or_lose');
+const result = document.querySelector('.outcome');
+const update = document.querySelector('.score');
+let score_update = document.querySelector(".score_update");
+
+ // Getting computer choice
+function computerPlay(){
+    const choices = ['rock', 'paper', 'scissors'];
     const getcomputerChoice = Math.floor(Math.random() * 3);
     const computerChoice = choices[getcomputerChoice];
-    console.log(computerChoice);
-    computerSelection = computerChoice;
-
-    playerSelection = prompt("rock, paper, scissors").toLowerCase();
-
-    // Comparing the selections to determine the winner per round
-    // if(playerSelection === computerSelection){
-    //     console.log(playerSelection);
-    //     console.log("It's a tie");
-    // }else if(computerSelection === choices[1]){
-    //     console.log(playerSelection);
-    //     console.log("Computer Wins!");
-    // }else{
-    //     console.log(playerSelection);
-    //     console.log("Computer loses, Well done PLAYER");
-    // }
+    return computerChoice;
+}
+//Play round function
+function playRound(playerSelection, computerSelection){
     // Comparaison of choices
+    console.log(`Player; ${playerSelection}: Computer; ${computerSelection}`)
+    console.log(`Player; ${playerScore}: Computer; ${computerScore}`)
     if (computerSelection == 'rock' && playerSelection == 'paper') {
-        console.log(playerSelection);
-        console.log("You beat computer");
+        result.innerText = "You beat computer";
         playerScore++;
     }
     else if (computerSelection == 'rock' && playerSelection == 'scissors'){
-        console.log(playerSelection);
-        console.log("Computer beats you");
+        result.innerText = "Computer beats you";
         computerScore++;
-
     }
     else if (computerSelection == 'paper' && playerSelection == 'rock'){
-        console.log(playerSelection);
-        console.log("Computer beats you");
+        result.innerText = "Computer beats you";
         computerScore++;
-
     }
     else if (computerSelection == 'paper' && playerSelection == 'scissors') {
-        console.log(playerSelection);
-        console.log("You beat the Computer");
+        result.innerText = "You beat the Computer";
         playerScore++;
-
     }
     else if (computerSelection == 'scissors' && playerSelection == 'rock') {
-        console.log(playerSelection);
-        console.log("You beat the computer");
+        result.innerText = "You beat the computer";
         playerScore++;
-
     }
     else if (computerSelection == 'scissors' && playerSelection == 'paper'){
-        console.log(playerSelection);
-        console.log("Computer beats you");
+        result.innerText = "Computer beats you";
         computerScore++;
-
-    } 
+    }
     else if (computerSelection == playerSelection){
-        console.log(playerSelection);
-        console.log("It\'s a tie");
+        result.innerText = `It\'s a tie, You both selected ${playerSelection}`;
     }else {
-        console.log(playerSelection);
-        console.log('Invalid choice!');
-        return;
+        result.innerText = `Invalid choice!, ${playerSelection} is not valid!`;
     }
 }
-
-// playRound();
-function game(){
-
-    for(let i = 0; i < 5; i++){
-        // playerchoice
-    // playerSelection = prompt("rock, paper, scissors").toLowerCase();
-         playRound();
- 
+// Check winner
+const checkWinner = (playerScore, computerScore) => {
+        if (playerScore == 3){
+            determine_winner.innerText = "You win";
+        }else if (computerScore == 3){
+            determine_winner.innerText = "Computer wins";
+        }
     }
-    if (computerScore > playerScore){
-        //Final outcome
-        console.log(` Computer scores: ${computerScore} \n Humanity extinct!`);
-    } else if(computerScore ==playerScore){
-        console.log(`Computer scored: ${computerScore} \n You scored: ${playerScore} \n You got a second chance to save Humanity!`);
-        let secondChance = confirm("Would you like to take another shot?");
-            if (secondChance){
-                game();
-            }else{
-                alert("We appreciate your efforts");
-            }
-    }else{
-        console.log(`You scored: ${playerScore} \n You saved Humanity!`)
-    }
+      
+function score(){
+   score_update.innerText = `Player Score:  ${playerScore} Computer Score:  ${computerScore}`;
 }
-game();
+ //Adding eventlisteners
+ rock.addEventListener("click", () => {
+    computerSelection = computerPlay();
+    playerSelection = "rock";
+    playRound(playerSelection, computerSelection);
+    checkWinner(playerScore, computerScore);
+    score(playerScore, computerScore)
+});
+paper.addEventListener("click", () => {
+    computerSelection = computerPlay();
+    playerSelection = "paper";
+    playRound(playerSelection, computerSelection);
+    checkWinner(playerScore, computerScore);
+    score(playerScore, computerScore)
+});
+scissors.addEventListener("click", () => {
+    computerSelection = computerPlay();
+    playerSelection = "scissors";
+    playRound(playerSelection, computerSelection);
+    checkWinner(playerScore, computerScore);
+    score(playerScore, computerScore)
+});
